@@ -2,88 +2,93 @@
   llm-resume-guide.md
   CV Hub
 
-  Created by Alexander Gusarov on 03.03.2026.
+  Created by Alexander Gusarov on 04.03.2026.
   @spartan121
 -->
 
 # LLM Resume Guide
 
-Инструкция по генерации YAML-файла резюме с помощью языковых моделей (Claude, ChatGPT и др.)
+How to generate YAML resume files using language models (Claude, ChatGPT, etc.)
 
 ---
 
-## Зачем это нужно
+## Why this exists
 
-CV Hub хранит все данные резюме в YAML-файлах (`cv/en.yaml`, `cv/ru.yaml`).
+CV Hub stores all resume data in YAML files (`cv/en.yaml`, `cv/ru.yaml`).
 
-Если у тебя уже есть резюме в PDF, DOCX, plain text или даже просто список информации — не нужно заполнять YAML вручную. Можно отдать его языковой модели с промптом ниже, и получить готовый YAML для вставки в проект.
+If you already have a resume in PDF, DOCX, plain text, or any other format — no need to fill in the YAML manually. Hand it to an LLM with the prompt below and get ready YAML to drop into the project.
 
 ---
 
-## Поддерживаемые форматы входного резюме
+## Supported input formats
 
-- PDF (скопируй текст или приложи файл напрямую в Claude/ChatGPT)
-- DOCX (открой и скопируй содержимое, либо приложи файл)
+- PDF — paste the text or attach the file directly in Claude / ChatGPT
+- DOCX — open and copy the content, or attach the file
 - Plain text / Markdown
-- LinkedIn: `linkedin.com/in/ты → More → Save to PDF`
-- Любой другой текстовый формат с профессиональной информацией
+- LinkedIn — `linkedin.com/in/you → More → Save to PDF`
+- Any other text format with professional information
 
 ---
 
-## Шаги
+## Steps
 
-### 1. Подготовь резюме
+### 1. Prepare your resume
 
-Открой своё резюме и скопируй весь текст. Либо приложи PDF/DOCX файл напрямую — Claude и ChatGPT умеют читать вложения.
+Copy all text from your resume, or attach the PDF/DOCX file directly — Claude and ChatGPT can read attachments.
 
-### 2. Открой языковую модель
+### 2. Open a language model
 
-Рекомендуется:
-- [Claude](https://claude.ai) — хорошо работает с вложенными файлами и структурированными данными
+Recommended:
+- [Claude](https://claude.ai) — handles attachments and structured data well
 - [ChatGPT](https://chat.openai.com)
 
-### 3. Вставь промпт ниже и приложи резюме
+### 3. Paste the prompt and attach your resume
 
-Скопируй промпт целиком, вставь в чат, приложи файл резюме (или вставь текст после промпта).
+Copy the full prompt below, paste it into the chat, then attach your resume file (or paste the text after the prompt).
 
 ---
 
-## Промпт
+## Prompt
 
 ```
-Ты помогаешь конвертировать резюме в структурированный YAML-формат для проекта CV Hub.
+You are helping convert a resume into structured YAML for the CV Hub project.
 
-Твоя задача — преобразовать предоставленное резюме в два YAML-файла: английскую и русскую версии (если оригинал только на одном языке — переведи на второй самостоятельно).
+Your task: transform the provided resume into two YAML files — English and Russian versions.
+If the original is in only one language, translate the other yourself.
 
-Верни ТОЛЬКО готовый YAML без пояснений, комментариев и блоков markdown. Только сырой YAML.
+Return ONLY raw YAML. No explanations, no comments, no markdown code fences.
 
 ---
 
-Структура файла cv/en.yaml (и аналогично cv/ru.yaml):
+Structure of cv/en.yaml (same structure for cv/ru.yaml):
 
 name: ""
 title: ""
 summary: ""
 
 contacts:
-  - type: email
-    value: ""
-  - type: github
-    value: ""
-  - type: linkedin
-    value: ""
-  - type: telegram
-    value: ""
+  - label: Email
+    url: mailto:
+  - label: GitHub
+    url: https://github.com/
+  - label: Telegram
+    url: https://t.me/
+  - label: LinkedIn
+    url: https://linkedin.com/in/
+
+achievements:
+  - ""
 
 skills:
-  - category: ""
+  - group: ""
     items: []
 
 experience:
   - company: ""
     role: ""
     period: ""
-    description: ""
+    description:
+      - ""
     stack: []
 
 education:
@@ -97,92 +102,144 @@ languages:
 
 ---
 
-Правила:
-- Не придумывай информацию. Используй только то, что есть в резюме.
-- Если какого-то поля нет в резюме — оставь пустую строку или пустой список.
-- Для поля summary — напиши краткое профессиональное описание от третьего лица (2-3 предложения), основываясь на содержании резюме.
-- Для skills — сгруппируй навыки по логическим категориям (Infrastructure, Languages, Tools, Cloud и т.д.).
-- Для experience — сохраняй хронологический порядок, от новейшего к старому.
-- Для stack в experience — перечисли только технологии, реально упомянутые в описании этого места работы.
-- Для contacts — включай только те контакты, которые есть в резюме.
+Rules:
+- Never invent information. Use only what is in the resume.
+- If a field is not present in the resume — leave an empty string or empty list.
+- summary: write a concise professional summary in first person (2–3 sentences) based on the resume content.
+- achievements: key career highlights with numbers. Omit if none exist.
+- skills: group by logical categories (Languages, Frameworks, DevOps, Cloud, Databases, Tools, etc.).
+- experience: chronological order, newest first.
+- experience.description: use a list of bullet points, not a single string.
+- experience.stack: only technologies actually mentioned in that job description.
+- contacts: include only contacts present in the resume.
 
-Сначала верни en.yaml, затем ru.yaml, разделив их строкой: --- RU ---
+Return en.yaml first, then ru.yaml, separated by exactly this line: --- RU ---
 ```
 
 ---
 
-### 4. Получи YAML
+### 4. Get the YAML
 
-Модель вернёт два готовых блока: английскую и русскую версии.
+The model will return two blocks — English and Russian versions separated by `--- RU ---`.
 
-### 5. Вставь в проект
+### 5. Insert into the project
 
-Скопируй содержимое в соответствующие файлы репозитория:
+Copy each block into the corresponding file:
 
 ```
 src/content/cv/en.yaml
 src/content/cv/ru.yaml
 ```
 
-Если ты работаешь прямо в GitHub:
+**Via GitHub UI:**
+1. Open `src/content/cv/en.yaml`
+2. Click **Edit** (pencil icon)
+3. Paste the generated YAML
+4. Click **Commit changes**
 
-1. Открой файл:
-   - `src/content/cv/en.yaml`
-2. Нажми кнопку **Edit** (иконка карандаша)
-3. Вставь сгенерированный YAML
-4. Commit changes
+Repeat for `ru.yaml`. The site will rebuild and deploy automatically.
 
-То же самое сделай для русской версии:
+**Via terminal:**
+```bash
+# paste content into files, then:
+git add src/content/cv/
+git commit -m "update cv data"
+git push
+```
 
-- `src/content/cv/ru.yaml`
-
-После коммита сайт автоматически обновится (если настроен GitHub Pages).
-
-### 6. Проверь результат
+### 6. Verify locally
 
 ```bash
 npm run dev
 ```
 
-Открой `http://localhost:4321` и проверь, что данные отображаются корректно.
+Open `http://localhost:4321` and check that everything renders correctly.
 
 ---
 
-## Частые ситуации
+## Expected output example
 
-**Резюме только на русском:**
-Промпт попросит модель перевести на английский. Можно уточнить: *"Оригинал на русском, переведи en.yaml на профессиональный английский."*
+The model should return something like this:
 
-**Нестандартная структура резюме:**
-Если у тебя нестандартные секции (публикации, сертификаты, open source) — добавь в промпт:
+```yaml
+name: "Jane Doe"
+title: "Frontend Developer"
+summary: >
+  Frontend Developer with 5 years of experience building React applications.
+  Focused on performance, accessibility and clean component architecture.
+
+contacts:
+  - label: Email
+    url: mailto:jane@example.com
+  - label: GitHub
+    url: https://github.com/janedoe
+
+achievements:
+  - Led migration from CRA to Vite — build time reduced from 90s to 8s
+  - Open source component library — 2K+ GitHub stars
+
+skills:
+  - group: Languages
+    items: [JavaScript, TypeScript]
+  - group: Frameworks
+    items: [React, Next.js, Vue]
+
+experience:
+  - company: "Acme Corp"
+    role: "Frontend Developer"
+    period: "Jan 2022 — present"
+    description:
+      - Built and maintained design system used across 4 products
+      - Reduced bundle size by 40% through code splitting and lazy loading
+    stack: [React, TypeScript, Vite, Storybook]
+
+education:
+  - institution: "State University"
+    degree: "Computer Science"
+    period: "2015–2019"
+
+languages:
+  - language: English
+    level: Native
 ```
-Также включи секцию:
+
+---
+
+## Common situations
+
+**Resume is only in Russian:**
+The prompt will ask the model to translate. You can add: *"Original is in Russian, translate en.yaml into professional English."*
+
+**Non-standard sections (certifications, publications, open source):**
+Add to the prompt:
+```
+Also include this section:
 certifications:
   - name: ""
     issuer: ""
     year: ""
 ```
 
-**Резюме слишком длинное:**
-Если резюме не помещается — разбей по секциям: сначала опыт работы, потом навыки и образование.
+**Resume is too long to paste:**
+Split it — send experience first, then skills and education in a follow-up message.
 
-**Хочу только EN или только RU:**
-Убери из промпта последнюю строку про `--- RU ---` и уточни нужный язык.
+**Only need EN or only RU:**
+Remove the `--- RU ---` line from the prompt and specify which language you need.
 
 ---
 
-## Итог
+## Flow
 
 ```
-PDF / DOCX / TXT резюме
+PDF / DOCX / TXT resume
         ↓
-   LLM + промпт
+   LLM + prompt
         ↓
    en.yaml + ru.yaml
         ↓
    git commit + push
         ↓
-   CV Hub сайт обновлён
+   CV Hub rebuilds → site updated + resume files regenerated
 ```
 
-YAML — единственная точка правды. Всё остальное генерируется из него.
+YAML is the single source of truth. Everything else is generated from it.
