@@ -1,3 +1,11 @@
+<!--
+  llm-resume-guide.md
+  CV Hub
+
+  Created by Alexander Gusarov on 03.03.2026.
+  @spartan121
+-->
+
 # LLM Resume Guide
 
 Инструкция по генерации YAML-файла резюме с помощью языковых моделей (Claude, ChatGPT и др.)

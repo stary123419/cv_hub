@@ -1,3 +1,11 @@
+<!--
+  CONTRIBUTING.md
+  CV Hub
+
+  Created by Alexander Gusarov on 03.03.2026.
+  @spartan121
+-->
+
 # Contributing to CV Hub
 
 Thanks for your interest in CV Hub.
