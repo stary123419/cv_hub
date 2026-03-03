@@ -6,56 +6,13 @@
 //  Created by Alexander Gusarov on 03.03.2026.
 //  @spartan121
 //
+
 import { getEntry } from 'astro:content';
-import Layout from '../components/Layout.astro';
+import HomePage from '../components/HomePage.astro';
 
 const lang = 'ru';
 const cv = await getEntry('cv', lang);
-
-// With relaxed schema we should be defensive
 const data = cv?.data ?? {};
-
-const t = {
-  nameFallback: 'Без имени',
-  contacts: 'Контакты',
-  skills: 'Навыки',
-  experience: 'Опыт',
-  achievements: 'Достижения',
-  showcase: 'Шоукейс',
-  downloads: 'Скачать',
-  pdf: 'PDF',
-  docx: 'DOCX',
-  txt: 'TXT',
-};
-
-const pageTitle = `${data?.name ?? t.nameFallback} — CV Hub`;
-
-const contacts = Array.isArray(data?.contacts) ? data.contacts : [];
-const rawSkills = Array.isArray(data?.skills) ? data.skills : [];
-const experience = Array.isArray(data?.experience) ? data.experience : [];
-const achievements = Array.isArray(data?.achievements) ? data.achievements : [];
-
-const normalizeBullet = (v) => {
-  if (typeof v === 'string') return v;
-  if (v && typeof v === 'object') {
-    if (typeof v.text === 'string') return v.text;
-    if (typeof v.label === 'string' && typeof v.value === 'string') return `${v.label}: ${v.value}`;
-    const parts = Object.entries(v).map(([k, val]) => `${k}: ${String(val)}`);
-    return parts.join(' · ');
-  }
-  return String(v);
-};
-
-const skillGroups = rawSkills
-  .map((s) =>
-    typeof s === 'string'
-      ? { group: null, items: [s] }
-      : {
-          group: s?.group ?? null,
-          items: Array.isArray(s?.items) ? s.items : [],
-        },
-  )
-  .filter((g) => g.items.length > 0);
 
 const dlBase = '/downloads';
 const dlLang = 'ru';
@@ -64,110 +21,10 @@ const docxUrl = `${dlBase}/resume_${dlLang}.docx`;
 const txtUrl = `${dlBase}/resume_${dlLang}.txt`;
 ---
 
-<Layout title={pageTitle} lang={lang} section="main">
-  <section class="container">
-    <!-- HERO -->
-    <div class="card hero">
-      <div class="hero__top">
-        <div>
-          <h1 class="hero__name">{data?.name ?? t.nameFallback}</h1>
-          {data?.title && <p class="hero__title">{data.title}</p>}
-          {data?.summary && <p class="hero__summary">{data.summary}</p>}
-        </div>
-
-        <div class="hero__actions">
-          <a class="btn" href="/showcase/ru">{t.showcase}</a>
-          <div class="btnrow" aria-label={t.downloads}>
-            <a class="btn btn--ghost" href={pdfUrl} download>{t.pdf}</a>
-            <a class="btn btn--ghost" href={docxUrl} download>{t.docx}</a>
-            <a class="btn btn--ghost" href={txtUrl} download>{t.txt}</a>
-          </div>
-        </div>
-      </div>
-
-      {contacts.length > 0 && (
-        <div class="hero__contacts">
-          <div class="section__title">{t.contacts}</div>
-          <div class="pillrow">
-            {contacts.map((c) => (
-              <a class="pill" href={c.url} target={c.url?.startsWith('mailto:') ? undefined : '_blank'} rel={c.url?.startsWith('mailto:') ? undefined : 'noopener'}>
-                {c.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-
-    <!-- GRID: skills + highlights/stack -->
-    <div class="grid2">
-      <article class="card">
-        <h2 class="h2">{t.skills}</h2>
-        {skillGroups.length > 0 ? (
-          <div class="skillsgrid">
-            {skillGroups.map((g) => (
-              <div class="skillsgroup">
-                {g.group && <div class="skillsgroup__title">{g.group}</div>}
-                <ul class="tags">
-                  {g.items.map((s) => <li class="tag">{s}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p class="muted">Добавь skills в YAML — и тут появятся теги.</p>
-        )}
-      </article>
-
-      <article class="card">
-        {achievements.length > 0 ? (
-          <>
-            <h2 class="h2">{t.achievements}</h2>
-            <ul class="list">
-              {achievements.map((a) => <li>{a}</li>)}
-            </ul>
-          </>
-        ) : (
-          <>
-            <h2 class="h2">Фокус</h2>
-            <ul class="list">
-              <li>DevOps в приоритете: production, надёжность, предсказуемые релизы.</li>
-              <li>Одна ссылка — всё: CV + Showcase + контакты + скачивания.</li>
-              <li>Данные в YAML → позже автогенерация PDF/DOCX/TXT.</li>
-            </ul>
-          </>
-        )}
-      </article>
-    </div>
-
-    <!-- EXPERIENCE -->
-    <section class="section">
-      <h2 class="h2">{t.experience}</h2>
-
-      {experience.length > 0 ? (
-        <div class="stack">
-          {experience.map((e) => (
-            <article class="card item">
-              <div class="item__top">
-                <strong>{e.company ?? 'Компания'}</strong>
-                <span class="muted">{e.period ?? ''}</span>
-              </div>
-              {e.role && <div class="muted">{e.role}</div>}
-
-              {Array.isArray(e.description) && e.description.length > 0 && (
-                <ul class="list">
-                  {e.description.map((d) => <li>{normalizeBullet(d)}</li>)}
-                </ul>
-              )}
-            </article>
-          ))}
-        </div>
-      ) : (
-        <article class="card">
-          <p class="muted">Добавь experience в YAML — тут появится таймлайн опыта.</p>
-        </article>
-      )}
-    </section>
-  </section>
-</Layout>
-
+<HomePage
+  lang={lang}
+  data={data}
+  pdfUrl={pdfUrl}
+  docxUrl={docxUrl}
+  txtUrl={txtUrl}
+/>

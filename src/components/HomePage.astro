@@ -1,0 +1,214 @@
+---
+//
+//  HomePage.astro
+//  CV Hub
+//
+//  Created by Alexander Gusarov on 03.03.2026.
+//  @spartan121
+//
+import Layout from './Layout.astro';
+
+const {
+  lang = 'en',
+  data = {},
+  pdfUrl,
+  docxUrl,
+  txtUrl,
+} = Astro.props;
+
+const t = {
+  nameFallback: lang === 'ru' ? 'Без имени' : 'Unnamed',
+  contacts: lang === 'ru' ? 'Контакты' : 'Contacts',
+  skills: lang === 'ru' ? 'Навыки' : 'Skills',
+  experience: lang === 'ru' ? 'Опыт' : 'Experience',
+  achievements: lang === 'ru' ? 'Достижения' : 'Achievements',
+  showcase: lang === 'ru' ? 'Шоукейс' : 'Showcase',
+  downloads: lang === 'ru' ? 'Скачать' : 'Download',
+  pdf: 'PDF',
+  docx: 'DOCX',
+  txt: 'TXT',
+};
+
+const pageTitle = `${data?.name ?? t.nameFallback} — CV Hub`;
+
+const contacts = Array.isArray(data?.contacts) ? data.contacts : [];
+const rawSkills = Array.isArray(data?.skills) ? data.skills : [];
+const experience = Array.isArray(data?.experience) ? data.experience : [];
+const achievements = Array.isArray(data?.achievements) ? data.achievements : [];
+
+const normalizeBullet = (v) => {
+  if (typeof v === 'string') return v;
+  if (v && typeof v === 'object') {
+    if (typeof v.text === 'string') return v.text;
+    if (typeof v.label === 'string' && typeof v.value === 'string') return `${v.label}: ${v.value}`;
+    const parts = Object.entries(v).map(([k, val]) => `${k}: ${String(val)}`);
+    return parts.join(' · ');
+  }
+  return String(v);
+};
+
+const skillGroups = rawSkills
+  .map((s) =>
+    typeof s === 'string'
+      ? { group: null, items: [s] }
+      : {
+          group: s?.group ?? null,
+          items: Array.isArray(s?.items) ? s.items : [],
+        },
+  )
+  .filter((g) => g.items.length > 0);
+
+const currentYear = new Date().getFullYear();
+const authorName = data?.name ?? 'Alexander Gusarov';
+const authorGit = 'https://github.com/KeeGooRoomiE';
+---
+
+<Layout title={pageTitle} lang={lang} section="main">
+  <section class="container">
+    {/*
+      page-grid: двухколоночный лейаут.
+      Левая колонка = sidebar (скачивания + навыки), правая = основной контент.
+      Чтобы изменить порядок блоков — двигай их внутри <aside> или <main>.
+    */}
+    <div class="page-grid">
+      {/*
+        SIDEBAR: левая колонка.
+        Блоки можно переставлять, убирать или дублировать по желанию.
+      */}
+      <aside class="sidebar">
+        {/*
+          1. Download resume (PDF / DOCX / TXT)
+          Можно перенести ниже skills или вообще убрать, удалив этот <article>.
+        */}
+        <article class="card">
+          <h2 class="h2">{t.downloads}</h2>
+          <div class="btnrow" aria-label={t.downloads}>
+            <a class="btn btn--ghost" href={pdfUrl} download>{t.pdf}</a>
+            <a class="btn btn--ghost" href={docxUrl} download>{t.docx}</a>
+            <a class="btn btn--ghost" href={txtUrl} download>{t.txt}</a>
+          </div>
+        </article>
+
+        {/*
+          2. Skills (навыки)
+          При желании можно перенести этот блок в main-content
+          — просто вырежи <article> и вставь его в <main>.
+        */}
+        <article class="card">
+          <h2 class="h2">{t.skills}</h2>
+          {skillGroups.length > 0 ? (
+            <div class="skillsgrid">
+              {skillGroups.map((g) => (
+                <div class="skillsgroup">
+                  {g.group && <div class="skillsgroup__title">{g.group}</div>}
+                  <ul class="tags">
+                    {g.items.map((s) => <li class="tag">{s}</li>)}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p class="muted">
+              {lang === 'ru'
+                ? 'Добавь skills в YAML — и тут появятся теги.'
+                : 'Add skills to YAML — tags will appear here.'}
+            </p>
+          )}
+        </article>
+      </aside>
+
+      {/*
+        MAIN-CONTENT: правая колонка.
+        Содержит hero (имя/summary/контакты), achievements и experience.
+        Можно переупорядочить крупные блоки: hero, achievements, experience.
+      */}
+      <main class="main-content">
+        {/*
+          1. Hero: имя, тайтл, summary + контакты.
+          Обычно этот блок сверху, но можно опустить ниже achievements/experience.
+        */}
+        <div class="card hero">
+          <div class="hero__top">
+            <div>
+              <h1 class="hero__name">{data?.name ?? t.nameFallback}</h1>
+              {data?.title && <p class="hero__title">{data.title}</p>}
+              {data?.summary && <p class="hero__summary">{data.summary}</p>}
+            </div>
+          </div>
+
+          {contacts.length > 0 && (
+            <div class="hero__contacts">
+              <div class="section__title">{t.contacts}</div>
+              <div class="pillrow">
+                {contacts.map((c) => (
+                  <a class="pill" href={c.url} target={c.url?.startsWith('mailto:') ? undefined : '_blank'} rel={c.url?.startsWith('mailto:') ? undefined : 'noopener'}>
+                    {c.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/*
+          2. Achievements (достижения).
+          Блок условный: если достижений нет — он не рендерится.
+          Можно переместить выше hero или ниже experience.
+        */}
+        {achievements.length > 0 && (
+          <article class="card">
+            <h2 class="h2">{t.achievements}</h2>
+            <ul class="list">
+              {achievements.map((a) => <li>{a}</li>)}
+            </ul>
+          </article>
+        )}
+
+        {/*
+          3. Experience: основной таймлайн опыта.
+          Обычно внизу, но его можно поднять выше hero/achievements.
+        */}
+        <section class="section">
+          <h2 class="h2">{t.experience}</h2>
+
+          {experience.length > 0 ? (
+            <div class="stack">
+              {experience.map((e) => (
+                <article class="card item">
+                  <div class="item__top">
+                    <strong>{e.company ?? (lang === 'ru' ? 'Компания' : 'Company')}</strong>
+                    <span class="muted">{e.period ?? ''}</span>
+                  </div>
+                  {e.role && <div class="muted">{e.role}</div>}
+
+                  {Array.isArray(e.description) && e.description.length > 0 && (
+                    <ul class="list">
+                      {e.description.map((d) => <li>{normalizeBullet(d)}</li>)}
+                    </ul>
+                  )}
+                </article>
+              ))}
+            </div>
+          ) : (
+            <article class="card">
+              <p class="muted">
+                {lang === 'ru'
+                  ? 'Добавь experience в YAML — тут появится таймлайн опыта.'
+                  : 'Add experience to YAML — your timeline will appear here.'}
+              </p>
+            </article>
+          )}
+        </section>
+      </main>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© {currentYear} {authorName}</span>
+      <a href={authorGit} target="_blank" rel="noopener" class="footer__link">
+        GitHub
+      </a>
+    </div>
+  </footer>
+</Layout>
+

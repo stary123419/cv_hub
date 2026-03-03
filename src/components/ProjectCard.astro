@@ -3,43 +3,149 @@
 //  ProjectCard.astro
 //  CV Hub
 //
-//  Created by Alexander Gusarov on 03.03.2026.
-//  @spartan121
+//  Updated to support extended showcase schema
 //
-const { project, lang = 'en' } = Astro.props;
+const { project } = Astro.props;
 
 const title = project?.name ?? 'Untitled';
 const role = project?.role ?? '';
 const year = project?.year ?? '';
 const desc = project?.description ?? '';
+
+const theme = project?.theme ?? 'auto';
+const accent = project?.accent ?? null;
+
 const stack = project?.stack ?? [];
+const tags = project?.tags ?? [];
+const platforms = project?.platforms ?? [];
+const metrics = project?.metrics ?? [];
 const links = project?.links ?? [];
+const media = project?.media ?? [];
+
+const featuredMedia = media.find((m) => m.featured) ?? media[0] ?? null;
+
+// Inline style override if accent HEX is provided
+const accentStyle = accent ? `--card-accent: ${accent};` : '';
 ---
 
-<article class="card">
+<article
+  class={`card project project--${theme} ${media.length === 0 ? 'project--no-media' : ''}`}
+  style={accentStyle}
+>
   <header class="card__header">
-    <h2 class="card__title">{title}</h2>
-    <div class="card__meta">
-      <span>{role}</span>
-      {year && <span>· {year}</span>}
+    <div>
+      {(role || year) && (
+        <div class="card__meta">
+          {role && <span class="muted">{role}</span>}
+          {year && <span class="muted">{role ? '· ' : ''}{year}</span>}
+        </div>
+      )}
+      <h2 class="card__title">{title}</h2>
     </div>
   </header>
 
-  {desc && <p class="card__desc">{desc}</p>}
+  {featuredMedia && (
+    <div class="media">
+      {featuredMedia.type === 'video' && (
+        <video
+          class="media__el"
+          src={featuredMedia.src}
+          controls
+          playsinline
+          preload="metadata"
+        ></video>
+      )}
 
-  {stack.length > 0 && (
-    <ul class="tags">
-      {stack.map((s) => <li class="tag">{s}</li>)}
-    </ul>
+      {(featuredMedia.type === 'image' || featuredMedia.type === 'gif') && (
+        <img
+          class="media__el"
+          src={featuredMedia.src}
+          alt={featuredMedia.alt ?? ''}
+          loading="lazy"
+          onerror="this.closest('.media')?.remove();"
+        />
+      )}
+
+      {media.length > 1 && (
+        <div class="thumbs" aria-label="Project media">
+          {media.map((m, idx) => (
+            <a
+              class={`thumb ${m === featuredMedia ? 'thumb--active' : ''}`}
+              href={m.src}
+              target="_blank"
+              rel="noopener"
+              title={m.alt ?? `Media ${idx + 1}`}
+            >
+              {(m.type === 'image' || m.type === 'gif') && (
+                <img
+                  class="thumb__img"
+                  src={m.src}
+                  alt={m.alt ?? ''}
+                  loading="lazy"
+                  onerror="this.closest('.thumb')?.remove();"
+                />
+              )}
+              {m.type === 'video' && (
+                <div class="thumb__video">▶</div>
+              )}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
   )}
 
-  {links.length > 0 && (
+  {desc && <p class="card__desc">{desc}</p>}
+
+  {metrics.filter((m) => m?.label || m?.value).length > 0 && (
+    <div class="metrics-grid">
+      {metrics
+        .filter((m) => m?.label || m?.value)
+        .map((m) => (
+          <div class="metric-card">
+            {m.label && <div class="metric-label">{m.label}</div>}
+            {m.value && <div class="metric-value">{m.value}</div>}
+          </div>
+        ))}
+    </div>
+  )}
+
+  {platforms.length > 0 && (
+    <div class="row">
+      <div class="row__title">Platforms</div>
+      <ul class="tags">
+        {platforms.filter(Boolean).map((p) => <li class="tag">{p}</li>)}
+      </ul>
+    </div>
+  )}
+
+  {stack.length > 0 && (
+    <div class="row">
+      <div class="row__title">Stack</div>
+      <ul class="tags">
+        {stack.filter(Boolean).map((s) => <li class="tag">{s}</li>)}
+      </ul>
+    </div>
+  )}
+
+  {tags.length > 0 && (
+    <div class="row">
+      <div class="row__title">Tags</div>
+      <ul class="tags">
+        {tags.filter(Boolean).map((t) => <li class="tag">{t}</li>)}
+      </ul>
+    </div>
+  )}
+
+  {links.filter((l) => l?.label && l?.url).length > 0 && (
     <div class="links">
-      {links.map((l) => (
-        <a class="link" href={l.url} target="_blank" rel="noopener">
-          {l.label}
-        </a>
-      ))}
+      {links
+        .filter((l) => l?.label && l?.url)
+        .map((l) => (
+          <a class="link" href={l.url} target="_blank" rel="noopener">
+            {l.label}
+          </a>
+        ))}
     </div>
   )}
 </article>

@@ -1,22 +1,27 @@
 projects:
-  - name: Sand Balls
-    role: Gameplay Engineer
-    year: 2020
-    description: 100M+ downloads mobile title.
-    stack:
-      - Unity
-      - C#
-    links:
-      - label: App Store
-        url: https://example.com
+  - slug: cv-hub
+    name: CV Hub
+    role: Author / Engineer
+    year: "2026"
+    description: Data-driven personal CV platform built with Astro and YAML as a single source of truth. Replaces static resumes and no-code builders with a version-controlled, extensible solution.
 
-  - name: Steam Deck Keyboard CSS Loader
-    role: Developer
-    year: 2024
-    description: Customizable keyboard themes for Steam Deck.
-    stack:
-      - CSS
-      - SteamOS
+    theme: blue
+    featured: true
+
+    platforms: [Web, GitHub Pages]
+    tags: [Astro, YAML, Automation, CI/CD]
+
+    metrics:
+      - label: Open Source
+        value: "Free to everyone"
+      - label: Deployment
+        value: "GitHub Pages"
+      - label: You Are Here
+        value: "Live Service"
+
+    stack: [Astro, TypeScript, YAML, GitHub Actions, CSS]
+
     links:
-      - label: GitHub
-        url: https://github.com/KeeGooRoomiE/Steam-Deck-Keyboard-CSS-Loader-Template
+      - label: Repository
+        url: https://github.com/KeeGooRoomiE/cv_hub
+        type: repo

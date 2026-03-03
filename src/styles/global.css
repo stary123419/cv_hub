@@ -154,6 +154,32 @@ a:hover { text-decoration: underline; }
   .grid2 { grid-template-columns: 1fr 1fr; }
 }
 
+/* Main page layout: sidebar + content */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (min-width: 960px) {
+  .page-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  }
+}
+
 /* Cards */
 .card {
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
@@ -676,6 +702,165 @@ a:hover { text-decoration: underline; }
 /* Optional: skill groups (reserved for later) */
 .skillsgrid { display: grid; gap: 12px; }
 .skillsgroup__title { font-weight: 700; margin-bottom: 6px; color: rgba(233, 238, 247, 0.92); }
+
+/* Showcase: project theming (theme + category) */
+.project {
+  /* Default accent for the card; can be overridden by theme/category or inline `--card-accent` */
+  --card-accent: var(--accent);
+  --card-accent-rgb: var(--accent-rgb);
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* If ProjectCard sets a custom accent HEX, it will set `--card-accent` inline.
+   We still use --card-accent-rgb for rgba() effects, so the theme classes below remain useful.
+*/
+
+.project::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border-radius: var(--r-lg);
+  background:
+    radial-gradient(600px 220px at 20% 0%, rgba(var(--card-accent-rgb) / 0.18), transparent 60%),
+    radial-gradient(500px 220px at 85% 20%, rgba(var(--card-accent-rgb) / 0.10), transparent 55%);
+  opacity: 0.9;
+}
+
+.project > * { position: relative; }
+
+/* Project-specific hover border uses card accent, not global accent */
+.project:hover {
+  border-color: rgba(var(--card-accent-rgb) / 0.28);
+}
+
+/* Badge can inherit the card accent subtly */
+.project .badge {
+  border-color: rgba(var(--card-accent-rgb) / 0.22);
+  background: rgba(var(--card-accent-rgb) / 0.10);
+}
+
+/* Theme tokens */
+.project--blue   { --card-accent-rgb: 59 130 246;  --card-accent: #3b82f6; }
+.project--purple { --card-accent-rgb: 168 85 247;  --card-accent: #a855f7; }
+.project--amber  { --card-accent-rgb: 245 158 11;  --card-accent: #f59e0b; }
+.project--emerald{ --card-accent-rgb: 16 185 129;  --card-accent: #10b981; }
+.project--red    { --card-accent-rgb: 239 68 68;   --card-accent: #ef4444; }
+.project--slate  { --card-accent-rgb: 148 163 184; --card-accent: #94a3b8; }
+
+/* Auto theme derives accent from category */
+.project--auto.project-cat--game    { --card-accent-rgb: 168 85 247;  --card-accent: #a855f7; }
+.project--auto.project-cat--tool    { --card-accent-rgb: 59 130 246;  --card-accent: #3b82f6; }
+.project--auto.project-cat--devops  { --card-accent-rgb: 16 185 129;  --card-accent: #10b981; }
+.project--auto.project-cat--app     { --card-accent-rgb: 245 158 11;  --card-accent: #f59e0b; }
+.project--auto.project-cat--library { --card-accent-rgb: 148 163 184; --card-accent: #94a3b8; }
+.project--auto.project-cat--other   { --card-accent-rgb: 148 163 184; --card-accent: #94a3b8; }
+
+/* Links/buttons inside project cards follow card accent */
+.project .link:hover {
+  border-color: rgba(var(--card-accent-rgb) / 0.28);
+  background: rgba(var(--card-accent-rgb) / 0.10);
+}
+
+/* Showcase: ProjectCard media + metrics + thumbs (moved from component) */
+.project{ align-self: start; }
+
+/* Media preview sizing: keep it within the card and make it more square */
+.media{
+  margin-top: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  aspect-ratio: 4 / 3;
+  max-height: 360px;
+}
+.media__el{
+  width: 100%;
+  height: 100%;
+  max-height: 360px;
+  display: block;
+  object-fit: cover;
+}
+
+/* Media thumbnails (no JS carousel) */
+.thumbs{
+  display:flex;
+  gap:10px;
+  overflow:auto;
+  padding:10px;
+  border-top:1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.02);
+}
+.thumb{
+  flex:0 0 auto;
+  width:72px;
+  height:44px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+}
+.thumb:hover{
+  border-color: rgba(var(--card-accent-rgb) / 0.28);
+  background: rgba(var(--card-accent-rgb) / 0.10);
+}
+.thumb--active{
+  border-color: rgba(var(--card-accent-rgb) / 0.35);
+  box-shadow: 0 0 0 2px rgba(var(--card-accent-rgb) / 0.14);
+}
+.thumb__img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.thumb__video{
+  font-weight:750;
+  opacity:.9;
+}
+
+/* Metrics vertical grid (up to 5 per row, auto-fit actual count) */
+.metrics-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  max-width: 100%;
+  margin: 18px auto 0;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+@media (max-width: 920px){
+  .metrics-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 560px){
+  .metrics-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.metric-card{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  align-items:center;
+  width:100%;
+}
+.metric-label{
+  font-size:12px;
+  opacity:.65;
+  letter-spacing:.2px;
+}
+.metric-value{
+  font-size:16px;
+  font-weight:700;
+  color: var(--card-accent, var(--accent));
+}
+
+/* When there is no media, tighten spacing a bit */
+.project--no-media .card__desc{ margin-top: 10px; }
 
 /* Accessibility: visible focus */
 :focus-visible {
