@@ -1,4 +1,4 @@
-<!--
+<file name=0 path=/Users/xandergusarov/Documents/GitHub/cv_hub/docs/INFO.md><!--
   INFO.md
   CV Hub
 
@@ -176,10 +176,10 @@ languages:
 projects:
   - name: "Project Name"
     slug: "project-name"
+    order: 1
     role: "DevOps Engineer"
     year: "2024"
     description: "Short project summary."
-    featured: true
     theme: "blue"
     accent: "#3b82f6"
     platforms: [Linux, Web]
@@ -205,10 +205,10 @@ projects:
 
 ### Field notes
 
+- `order` — numeric sorting priority (lower value = shown earlier; missing values go last)
 - All fields are optional by schema design — missing fields are not rendered
 - `theme` — predefined CSS token (`blue`, `purple`, `emerald`, `red`, etc.)
 - `accent` — HEX color override, takes precedence over `theme`
-- `featured` — affects card sorting and future highlight treatment
 - `metrics.source` — optional proof link, not displayed visually
 - `links.type` — semantic only (`repo`, `demo`, `store`, `article`); affects icon if implemented
 - `media.src` — path relative to `/public`
@@ -281,4 +281,4 @@ full control over their professional presentation.
 ## License
 
 Source code: MIT  
-Content (resume data): © Author
+Content (resume data): © Author</file>
