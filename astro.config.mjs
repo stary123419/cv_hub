@@ -1,11 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
+const repo = process.env.GITHUB_REPOSITORY; // "keegooroomie/cv_hub"
+const [owner, name] = repo ? repo.split('/') : [null, null];
+
 export default defineConfig({
-  // Автоматически подстраиваем base под имя репозитория GitHub
-  // Локально (npm run dev) GITHUB_REPOSITORY не задан, поэтому base = undefined.
-  base: process.env.GITHUB_REPOSITORY
-    ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}`
-    : undefined,
+  site: owner ? `https://${owner}.github.io` : 'http://localhost:4321',
+  base: name ? `/${name}` : undefined,
 });
