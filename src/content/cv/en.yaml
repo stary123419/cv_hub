@@ -1,81 +1,163 @@
 name: Alexander Gusarov
-title: DevOps Engineer
+title: Software Engineer | DevOps
 summary: >
-  DevOps Engineer focused on production Kubernetes, Infrastructure as Code and AWS.
-  Automated management for 750+ Linux servers (99.9% uptime), optimized cloud costs,
-  and reduced deploy time from 8 to 2 minutes.
+  Multidisciplinary Software Engineer with 10+ years of experience across Full-stack, Mobile, Unity and DevOps.
+  Covers the full development cycle: architecture, code, APIs, integrations, CI/CD, automation and optimization.
+  Launched products with 100M+ audience, accelerated feature delivery by 30–50%, reduced incidents and automated
+  infrastructure across hundreds of Linux servers. Thrives in startups and product teams where speed,
+  autonomy and predictable results matter.
 
 contacts:
   - label: Email
-    url: mailto:spartan.dgs121@icloud.com
+    url: mailto:spartan.dgs.121@icloud.com
   - label: GitHub
     url: https://github.com/KeeGooRoomiE
   - label: Telegram
     url: https://t.me/spartan121
+  - label: Upwork
+    url: https://www.upwork.com/freelancers/spartandgs
   - label: Portfolio
     url: https://github.com/KeeGooRoomiE
 
-skills:
-  - group: Kubernetes
-    items:
-      - Kubernetes
-      - Helm
-      - Docker
-  - group: IaC
-    items:
-      - Terraform
-      - Ansible
-  - group: Cloud
-    items:
-      - AWS (EC2, S3, VPC, IAM, ALB)
-  - group: CI/CD
-    items:
-      - CI/CD (GitHub Actions, GitLab CI)
-  - group: Observability
-    items:
-      - Monitoring (Prometheus, VictoriaMetrics, Grafana, Loki, CloudWatch)
-  - group: Databases
-    items:
-      - Databases (PostgreSQL, ClickHouse, Redis)
-  - group: Networking
-    items:
-      - Networking (TCP/IP, DNS, VPN, Firewall)
-  - group: Languages & Tools
-    items:
-      - Go / Node.js / Python / Bash
-
 achievements:
-  - Automated management for 750+ Linux servers with 99.9% uptime.
-  - Reduced deploy time from 8 to 2 minutes by optimizing CI/CD and Docker images (500MB → 200MB).
-  - Designed and operated AWS infrastructure with Terraform + Ansible (EC2, VPC, RDS, IAM, ALB).
-  - Built a monitoring stack (Grafana + Prometheus/VictoriaMetrics) with 1.5–2 minute incident response SLA.
-  - Delivered a production-ready monitoring microservice (Go + PostgreSQL + React).
+  - Sand Balls — 100M+ downloads, top-10 in App Store
+  - Bhop Jump — $160K+ revenue in the first quarter
+  - Top Rated Plus on Upwork — top 5% of performers
+  - Lana and Ronen — seasonal hit, 1M+ downloads
+
+skills:
+  - group: Languages
+    items: [C#, GML, Dart, Swift, JavaScript, Java, TypeScript, Solidity, GLSL, Go]
+  - group: Frameworks
+    items: [Flutter, Xamarin, Android SDK, Xcode, .NET, Unity, Game Maker, Angular, React, EF Core, Metal, Node.js, Laravel, Vue]
+  - group: DevOps & Infrastructure
+    items: [Kubernetes, Helm, Docker, Terraform, Ansible, Jenkins, GitHub Actions, GitLab CI]
+  - group: Cloud
+    items: [AWS (EC2, S3, VPC, IAM, ALB)]
+  - group: Observability
+    items: [Prometheus, VictoriaMetrics, Grafana, Loki, CloudWatch]
+  - group: Databases
+    items: [PostgreSQL, ClickHouse, Redis, MySQL, SQL Server]
+  - group: Networking
+    items: [TCP/IP, DNS, VPN, Firewall]
+  - group: Tools
+    items: [Git, Firebase, Google Analytics, REST API, Jira, Postman, JetBrains, Vim, ShaderToy]
+  - group: UI / UX
+    items: [Figma, Adobe Suite, Sketch, Pixelmator]
+  - group: Web
+    items: [JavaScript, HTML, CSS, Tilda, OpenGL]
+  - group: Platforms
+    items: [Android, iOS, macOS, tvOS, WearOS, Web, Windows, Amazon, Blockchain, Linux]
+  - group: AI Tools
+    items: [ChatGPT, Perplexity, Cursor, Grok, Fooocus AI, DeepSeek, Sora]
+  - group: Languages (spoken)
+    items: [Russian, English]
 
 experience:
   - company: InfoScale
     role: DevOps Engineer / Software Engineer
-    period: Dec 2024 — Jan 2026
+    period: Dec 2024 — Nov 2025
     description:
-      - Administered Kubernetes clusters (deployments, ConfigMaps, Secrets, network policies)
-      - Built AWS infrastructure with Terraform + Ansible (EC2, VPC, RDS, IAM, ALB)
-      - CI/CD optimization: reduced deploy time from 8 to 2 minutes; Docker images 500MB → 200MB
-      - ClickHouse dev cluster: 1 shard / 2 replicas; performance testing and tuning
-      - Monitoring: Grafana + Prometheus/VictoriaMetrics; dashboards, custom metrics; SLA response 1.5–2 min
-      - Security & recovery: incident response for SSH attacks; data recovery via KVM
-      - Delivered a monitoring microservice (Go + PostgreSQL + React)
+      - Administered and maintained production Kubernetes clusters (deployments, ConfigMaps, Secrets, network policies, pods, logs)
+      - Built Helm charts, GitLab CI pipelines, Docker environments for build, test and delivery
+      - Automated configuration and provisioning of 1000+ Linux servers (Ansible + Kubernetes), reducing manual ops by 80%+
+      - Set up Grafana + Prometheus/VM monitoring — metrics, alerting, dashboards; reduced MTTR by 60%
+      - Incident diagnostics — logging, network issues, service dependencies, environment availability
+      - Deployed internal company services, optimized configs and maintained stable working environments
+      - Built an internal HTTP/HTTPS/SSH/Ping availability checker — Go (Gin) backend, data models, migrations, CRUD and API endpoints
+      - Built a React web dashboard for check management and analytics — status, interface, queries, DB integration
+      - Mentored a junior developer — task assignment, code review, architecture explanations, delivery control
+    stack: [Kubernetes, Helm, GitLab CI, Docker, Ansible, Terraform, AWS, Grafana, Prometheus, VictoriaMetrics, Go, Gin, React, PostgreSQL]
+
+  - company: SOFTINTERMOB
+    role: Unity Developer
+    period: Nov 2023 — Jul 2024
+    description:
+      - Developed two mobile apps (Roblox/Minecraft utilities) from Figma designs — full cycle from UI/UX and 2D/3D assets to build and App Store publication
+      - Integrated third-party SDKs and services (including Firebase), resolving version conflicts, shader issues, asset and iOS build problems
+      - Conducted large-scale legacy code refactoring, improving stability, structure and performance
+      - Set up analytics, adaptive interfaces and remote deployment for correct iPhone and iPad operation
+    stack: [Unity, C#, Firebase, Figma, iOS, Android]
 
   - company: AZNResearch
     role: Fullstack Developer (DevOps)
     period: Jul 2022 — Oct 2023
     description:
-      - Built C# (EF Core) microservices for gov/fintech projects; REST APIs; SQL/MySQL integration
-      - Introduced dev workflows (Git flow, code review, CI deployment) and improved team throughput by ~25%
-      - Stack: Angular, Tailwind, C#, .NET Core, SQL Server, MySQL, Linux
+      - Designed and implemented frontend architecture for several internal products (Angular + Tailwind) — pixel-perfect adaptive interfaces for desktop, tablet and mobile
+      - Built microservices on EF Core, wrote backend logic, API endpoints, worked with SQL/MySQL via LINQ, reverse engineering and custom DLL libraries
+      - Introduced a full development culture — proper Git workflow, code review structure, unit testing and independent component architecture
+      - Handled part of management tasks — client communication, requirements gathering, task management, documentation and stable CI deployment
+      - Formed a working team backbone, coordinated senior developers and proposed improvements to existing projects
+    stack: [Angular, Tailwind, C#, .NET Core, EF Core, SQL Server, MySQL, Linux, Git]
+
+  - company: Neosight
+    role: Game Designer
+    period: Nov 2021 — Feb 2022
+    description:
+      - Designed GDD for 6 mobile 3D games, including core mechanics, meta, monetization and progression; several projects built from scratch
+      - Produced concept validation videos, increasing installs by 30x and raising CTR from 0.4% to ~5% on ad campaigns
+      - Balanced complexity, session length and game curves; worked with retention/difficulty/drop-off metrics and updated content based on analytics
+    stack: [Unity, Game Design, Analytics]
+
+  - company: Udemy
+    role: Unity Developer
+    period: Mar 2021 — Oct 2021
+    description:
+      - Built a German language learning app from scratch (22 categories, ~3000 flashcards) — full UI/UX, logic and interactivity in Unity
+      - Optimized architecture and data storage, reducing app size from ~3 GB to ~400 MB and improving stability on iOS/Android
+      - Configured adaptive interfaces and performance (C#, Addressables, JSON) for quality release and high user rating
+    stack: [Unity, C#, Addressables, JSON, iOS, Android]
+
+  - company: Popside Games
+    role: Level Designer
+    period: Jul 2020 — Oct 2020
+    description:
+      - Created 3000+ levels for Match-3 and Solitaire projects under tight production schedules
+      - Improved level completion rates by 15% through iterative testing, complexity tuning and progression logic adjustments
+      - Collaborated with artists and developers to maintain visual style integrity and gameplay quality
+    stack: [Game Design, Level Design, Analytics]
+
+  - company: SayGames
+    role: Game Designer
+    period: Feb 2020 — Jun 2020
+    description:
+      - Designed core mechanics and level concepts for hyper-casual projects
+      - Ran level testing and iteration based on retention/drop-off metrics, improving D1-retention by 10%
+      - Participated in prototype and game concept development — some reaching 100K+ downloads at launch
+    stack: [Game Design, Hyper-casual, Analytics]
+
+  - company: Goodline
+    role: Software Engineer
+    period: Nov 2019 — Jan 2020
+    description:
+      - Developed and adapted internal React interfaces for mobile devices
+      - Worked under senior engineer mentorship, studying corporate processes and code review; improved performance by 25% through optimization
+      - Contributed to UI/UX improvements and logic of internal company applications
+    stack: [React, JavaScript, HTML, CSS]
 
   - company: Project Tech
-    role: Senior Developer / Co-Founder
+    role: Software Engineer / Co-Founder
     period: Feb 2017 — Oct 2019
     description:
-      - Tech lead for a team of 6 (architecture, mentoring, code review)
-      - Production deployments for full-stack projects (Docker Compose)
-      - Backend for multiplayer features (Node.js + WebSockets)
+      - Helped build the office and team from 4 to 12 people — processes and developer hiring
+      - Developed and shipped games, mobile apps and ad projects for small businesses, companies and bloggers
+      - Delivered projects end-to-end — architecture, development, integrations, stress tests and A/B testing
+      - Worked across a wide stack (Unity, C#, React, React Native, Node.js, Solidity, Xamarin, Game Maker), enabling fast launch of diverse projects
+    stack: [Unity, C#, React, React Native, Node.js, Solidity, Xamarin, Game Maker, Docker Compose]
+
+education:
+  - institution: Udemy
+    degree: Linux Foundation Computer Science / Certified Kubernetes Administrator
+    period: "2025"
+  - institution: Wargaming Forge
+    degree: Level Designer & Balancing
+    period: "2020"
+  - institution: Siberian Polytechnic University
+    degree: Information Technology — Computer Quality Management Systems
+    period: 2017–2018
+
+languages:
+  - language: Russian
+    level: Native
+  - language: English
+    level: Professional working proficiency

@@ -1,41 +1,163 @@
-name: Alexander Gusarov
-title: DevOps Engineer / Software Engineer
+name: Александр Гусаров
+title: Software Engineer | DevOps
 summary: >
-  10+ years in IT across development and infrastructure.
-  Focused on production Kubernetes, IaC and reliability.
+  Мультистековый Software Engineer с 10+ годами опыта, совмещающий компетенции Full-stack, Mobile, Unity и DevOps.
+  Закрываю полный цикл разработки: архитектура, код, API, интеграции, CI/CD, автоматизация и оптимизация.
+  Запускал продукты с аудиторией 100M+, ускорял выпуск фич на 30-50%, снижал инциденты и автоматизировал
+  инфраструктуру на сотнях Linux-серверов. Эффективно работаю в стартапах и продуктовых командах,
+  где особенно важны скорость, самостоятельность и предсказуемый результат.
 
 contacts:
+  - label: Email
+    url: mailto:spartan.dgs.121@icloud.com
   - label: GitHub
     url: https://github.com/KeeGooRoomiE
   - label: Telegram
     url: https://t.me/spartan121
-
-skills:
-  - group: Kubernetes
-    items:
-      - Kubernetes
-  - group: IaC
-    items:
-      - Terraform
-      - Ansible
-  - group: Cloud
-    items:
-      - AWS
-  - group: Databases
-    items:
-      - ClickHouse
+  - label: Upwork
+    url: https://www.upwork.com/freelancers/spartandgs
+  - label: Portfolio
+    url: https://github.com/KeeGooRoomiE
 
 achievements:
-  - Автоматизировал управление более чем 750 Linux-серверами с доступностью 99.9%.
-  - Сократил время деплоя с 8 до 2 минут за счёт оптимизации CI/CD и Docker-образов.
-  - Спроектировал и поддерживал инфраструктуру в AWS с использованием Terraform и Ansible.
-  - Построил мониторинговый стек (Grafana + Prometheus/VictoriaMetrics) с SLA по реакции на инциденты 1.5–2 минуты.
+  - Sand Balls — более 100M скачиваний, топ-10 в App Store
+  - Bhop Jump — более $160K дохода в первом квартале
+  - Top Rated Plus на Upwork — вошёл в топ-5% исполнителей
+  - Lana and Ronen — сезонный хит, 1+ млн скачиваний
+
+skills:
+  - group: Языки программирования
+    items: [C#, GML, Dart, Swift, JavaScript, Java, TypeScript, Solidity, GLSL, Go]
+  - group: Фреймворки
+    items: [Flutter, Xamarin, Android SDK, Xcode, .NET, Unity, Game Maker, Angular, React, EF Core, Metal, Node.js, Laravel, Vue]
+  - group: DevOps и инфраструктура
+    items: [Kubernetes, Helm, Docker, Terraform, Ansible, Jenkins, GitHub Actions, GitLab CI]
+  - group: Облако
+    items: [AWS (EC2, S3, VPC, IAM, ALB)]
+  - group: Мониторинг
+    items: [Prometheus, VictoriaMetrics, Grafana, Loki, CloudWatch]
+  - group: Базы данных
+    items: [PostgreSQL, ClickHouse, Redis, MySQL, SQL Server]
+  - group: Сети
+    items: [TCP/IP, DNS, VPN, Firewall]
+  - group: Инструменты
+    items: [Git, Firebase, Google Analytics, REST API, Jira, Postman, JetBrains, Vim, ShaderToy]
+  - group: UI / UX
+    items: [Figma, Adobe Suite, Sketch, Pixelmator]
+  - group: Веб
+    items: [JavaScript, HTML, CSS, Tilda, OpenGL]
+  - group: Платформы
+    items: [Android, iOS, macOS, tvOS, WearOS, Web, Windows, Amazon, Blockchain, Linux]
+  - group: ИИ инструменты
+    items: [ChatGPT, Perplexity, Cursor, Grok, Fooocus AI, DeepSeek, Sora]
+  - group: Разговорные языки
+    items: [Русский, Английский]
 
 experience:
   - company: InfoScale
-    role: DevOps Engineer
-    period: Dec 2024 — Nov 2025
+    role: DevOps Engineer / Software Engineer
+    period: Декабрь 2024 — Ноябрь 2025
     description:
-      - Managed production Kubernetes in AWS
-      - Implemented Terraform infrastructure modules
-      - Built monitoring stack with VictoriaMetrics and Grafana
+      - Администрировал и поддерживал продакшн-кластеры на Kubernetes — развёртывание сервисов, настройка окружений, работа с pod'ами, логами, конфигами и сетевыми политиками
+      - Создавал Helm-чарты, пайплайны GitLab CI, Docker-окружения для корректной сборки, тестирования и доставки приложений
+      - Автоматизировал конфигурацию и развёртывание 1000+ Linux-серверов (Ansible + Kubernetes), сократив ручные операции более чем на 80%
+      - Внедрил мониторинг Grafana + Prometheus/VM — метрики, алертинг, дашборды; снизил MTTR на 60%
+      - Проводил диагностику инцидентов — логирование, сетевые проблемы, зависимые сервисы, доступность окружений
+      - Разворачивал внутренние сервисы компании, оптимизировал конфигурации и обеспечивал устойчивость рабочих окружений
+      - Разработал внутренний сервис проверки доступности (HTTP/HTTPS/SSH/Ping) — backend на Go (Gin), модели данных, миграции, CRUD и API
+      - Создал веб-панель на React для управления проверками и аналитики — состояние, интерфейс, запросы, интеграция с базой
+      - Менторил младшего разработчика — задачи, ревью, архитектура, контроль выполнения
+    stack: [Kubernetes, Helm, GitLab CI, Docker, Ansible, Terraform, AWS, Grafana, Prometheus, VictoriaMetrics, Go, Gin, React, PostgreSQL]
+
+  - company: SOFTINTERMOB
+    role: Unity Developer
+    period: Ноябрь 2023 — Июль 2024
+    description:
+      - Разрабатывал два мобильных приложения (Roblox/Minecraft utilities) по Figma-дизайнам — полный цикл от UI/UX и 2D/3D-элементов до сборки и публикации в App Store
+      - Интегрировал сторонние SDK и сервисы (включая Firebase), решая проблемы несовместимости версий, шейдеров, ассетов и iOS-билдов
+      - Проводил масштабный рефакторинг легаси-кода, улучшал стабильность, структуру и производительность проектов
+      - Настраивал аналитику, адаптивные интерфейсы и деплой через удалённую среду для корректной работы на iPhone и iPad
+    stack: [Unity, C#, Firebase, Figma, iOS, Android]
+
+  - company: AZNResearch
+    role: Fullstack Developer (DevOps)
+    period: Июль 2022 — Октябрь 2023
+    description:
+      - Проектировал и реализовывал архитектуру фронтенда для нескольких внутренних продуктов (Angular + Tailwind) — pixel-perfect адаптивные интерфейсы для ПК, планшетов и мобильных
+      - Создавал микросервисы на EF Core, писал backend-логику, API-эндпоинты, работал с SQL/MySQL через LINQ, реверс-инжиниринг и собственные DLL-библиотеки
+      - Внёс в компанию полноценную культуру разработки — Git, структуру ревью, юнит-тестирование и независимую компонентную архитектуру
+      - Закрывал менеджерские задачи — общение с клиентом, требования, задачи, документация и стабильный CI-деплой
+      - Сформировал костяк команды, координировал senior-разработчиков и предлагал улучшения в существующие проекты
+    stack: [Angular, Tailwind, C#, .NET Core, EF Core, SQL Server, MySQL, Linux, Git]
+
+  - company: Neosight
+    role: Game Designer
+    period: Ноябрь 2021 — Февраль 2022
+    description:
+      - Разработал ГДД для 6 мобильных 3D-игр — кор-механика, мета, монетизация и progression; несколько проектов с нуля
+      - Производил Concept validation videos — установки выросли в 30 раз, CTR с 0.4% до ~5% на рекламных кампаниях
+      - Балансировал сложность и игровые кривые; работал с retention/difficulty/drop-off метриками и обновлял контент по аналитике
+    stack: [Unity, Game Design, Analytics]
+
+  - company: Udemy
+    role: Unity Developer
+    period: Март 2021 — Октябрь 2021
+    description:
+      - Разработал с нуля приложение по изучению немецкого (22 категории, ~3000 карточек) — полный UI/UX, логика и интерактивы в Unity
+      - Оптимизировал архитектуру и хранение данных — размер с ~3 ГБ до ~400 МБ, стабильность на iOS/Android
+      - Настроил адаптивные интерфейсы и производительность (C#, Addressables, JSON) — качественный релиз и высокая оценка клиента
+    stack: [Unity, C#, Addressables, JSON, iOS, Android]
+
+  - company: Popside Games
+    role: Level Designer
+    period: Июль 2020 — Октябрь 2020
+    description:
+      - Создал 3000+ уровней для Match-3 и Solitaire-проектов в условиях плотного продакшн-графика
+      - Улучшил проходимость уровней на 15% через итеративное тестирование и корректировку progression-логики
+      - Работал с художниками и разработчиками для поддержания целостности визуального стиля и геймплея
+    stack: [Game Design, Level Design, Analytics]
+
+  - company: SayGames
+    role: Game Designer
+    period: Февраль 2020 — Июнь 2020
+    description:
+      - Проектировал кор-механики и концепты уровней для гиперказуал-проектов
+      - Тестировал и итерировал уровни по retention/drop-off-метрикам, повысив D1-retention на 10%
+      - Участвовал в разработке прототипов — часть достигла 100K+ скачиваний на этапе запуска
+    stack: [Game Design, Hyper-casual, Analytics]
+
+  - company: Goodline
+    role: Software Engineer
+    period: Ноябрь 2019 — Январь 2020
+    description:
+      - Разрабатывал и адаптировал внутренние React-интерфейсы под мобильные устройства
+      - Работал под менторством Senior инженера — корпоративные процессы и code review; производительность +25% через оптимизацию
+      - Участвовал в улучшении UI/UX и логики внутренних приложений компании
+    stack: [React, JavaScript, HTML, CSS]
+
+  - company: Project Tech
+    role: Senior Developer / Co-Founder
+    period: Февраль 2017 — Октябрь 2019
+    description:
+      - Участвовал в создании офиса и команды с 4 до 12 человек — процессы и найм разработчиков
+      - Разрабатывал и выпускал игры, мобильные приложения и рекламные проекты для малого бизнеса и компаний
+      - Закрывал проекты end-to-end — архитектура, разработка, интеграции, стресс-тесты и A/B-тестирование
+      - Широкий стек (Unity, C#, React, React Native, Node.js, Solidity, Xamarin, Game Maker) — разноплановые проекты в короткие сроки
+    stack: [Unity, C#, React, React Native, Node.js, Solidity, Xamarin, Game Maker, Docker Compose]
+
+education:
+  - institution: Udemy
+    degree: Linux Foundation Computer Science / Certified Kubernetes Administrator
+    period: "2025"
+  - institution: Wargaming Forge
+    degree: Level Designer & Balancing
+    period: "2020"
+  - institution: Сибирский Политехнический университет
+    degree: Факультет информационных технологий — Компьютерные системы управления качеством
+    period: 2017-2018
+
+languages:
+  - language: Русский
+    level: Родной
+  - language: Английский
+    level: Профессиональный
