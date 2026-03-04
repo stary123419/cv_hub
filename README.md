@@ -11,14 +11,13 @@ CV Hub turns your resume into infrastructure.
 One YAML file becomes:
 
 - A live personal website
-- Downloadable DOCX and TXT files
+- Downloadable PDF, DOCX and TXT files
 - A structured, version-controlled professional profile
 - A reproducible build artifact
 
 No duplicated resumes. No platform lock-in. No visual builders.
 
 Just data → build → deploy.
-
 
 Treat your career like a system.
 
@@ -93,6 +92,7 @@ cd cv-hub
 
 ```bash
 npm install
+npx playwright install chromium --with-deps
 ```
 
 ### 4. Run locally
@@ -127,6 +127,36 @@ src/content/
 ```
 
 For full YAML structure reference and field descriptions — see **[`docs/INFO.md`](docs/INFO.md)**.
+
+---
+
+## How to fill in your data
+
+There are three ways to get your resume into YAML:
+
+### Option A — Edit YAML directly
+
+Open `src/content/cv/en.yaml` and `ru.yaml` and fill in your data manually.
+See [`docs/INFO.md`](docs/INFO.md) for the full field reference.
+
+### Option B — Import from JSON Resume
+
+If your resume exists in [JSON Resume](https://jsonresume.org) format:
+
+```bash
+# Single language
+npm run resume:import -- docs/cv_en.json en
+npm run resume:import -- docs/cv_ru.json ru
+
+# Both at once
+npm run resume:import:all
+```
+
+### Option C — Generate from any resume via LLM
+
+If you have a PDF, DOCX, or plain text resume — use Claude or ChatGPT with the ready-made prompt to generate YAML automatically.
+
+👉 **[See `docs/llm-resume-guide.md`](docs/llm-resume-guide.md)**
 
 ---
 
@@ -181,46 +211,51 @@ The deploy workflow runs automatically on every push to `main`. The `base` URL i
 
 ## Resume file generation
 
-DOCX and TXT files are generated automatically from YAML during build:
+All resume files are generated automatically from YAML during build:
 
 ```bash
 npm run build
-# runs: node scripts/generate-resume.js && astro build
 ```
 
-To generate files without building the site:
-
-```bash
-npm run generate
-```
+This runs in order:
+1. `resume:generate` — builds DOCX + TXT from YAML
+2. `resume:pdf` — builds PDF via Playwright from YAML
+3. `astro build` — builds the static site
 
 Output:
 ```
-public/downloads/resume_en.txt
-public/downloads/resume_ru.txt
+public/downloads/resume_en.pdf
+public/downloads/resume_ru.pdf
 public/downloads/resume_en.docx
 public/downloads/resume_ru.docx
+public/downloads/resume_en.txt
+public/downloads/resume_ru.txt
 ```
 
-PDF is placed manually into `public/downloads/` for now. Automated PDF generation via Playwright is planned.
+To generate resume files without building the site:
+
+```bash
+npm run resume:generate   # DOCX + TXT
+npm run resume:pdf        # PDF
+```
 
 ---
 
-## Generate YAML from an existing resume
+## CLI reference
 
-If you already have a resume in PDF or DOCX — no need to fill in the YAML manually.
-
-Use an LLM (ChatGPT, Claude, etc.) with the ready-made prompt:
-
-👉 **[See `docs/llm-resume-guide.md`](docs/llm-resume-guide.md)**
-
-Step-by-step instructions and a prompt that takes your resume and returns ready YAML to drop into the project.
+```bash
+npm run dev                  # start local dev server
+npm run build                # generate all resume files + build site
+npm run resume:generate      # generate DOCX + TXT from YAML
+npm run resume:pdf           # generate PDF from YAML via Playwright
+npm run resume:import        # convert JSON Resume → YAML (single file)
+npm run resume:import:all    # convert both cv_en.json and cv_ru.json
+npm run resume:linkedin      # parse LinkedIn PDF export → YAML (best-effort)
+```
 
 ---
 
 ## Documentation
-
-Want to understand or extend the architecture? Start here:
 
 ```
 docs/
@@ -246,19 +281,28 @@ src/
     showcase/
       projects.yaml
   pages/
-    index.astro        # Main CV page (EN)
-    ru.astro           # Main CV page (RU)
-    showcase.astro     # Showcase page
+    index.astro              # Main CV page (EN)
+    ru.astro                 # Main CV page (RU)
+    showcase/
+      index.astro            # Showcase page (EN)
+      ru.astro               # Showcase page (RU)
   components/
     Layout.astro
     Header.astro
     HomePage.astro
+  scripts/
+    resume-export-pdf.mjs    # PDF generator (Playwright)
+    resume-import-json.mjs   # JSON Resume → YAML converter
+    resume-import-linkedin.mjs # LinkedIn PDF → YAML parser
 public/
   styles/
-    global.css         # All site styles
-  downloads/           # Generated resume files
-scripts/
-  generate-resume.js   # DOCX + TXT generator
+    global.css               # All site styles
+  downloads/                 # Generated resume files
+.github/
+  scripts/
+    generate-resume.js       # DOCX + TXT generator
+  workflows/
+    deploy.yml               # GitHub Actions CI/CD
 docs/
   INFO.md
   ENGINEERING.md
@@ -272,6 +316,7 @@ docs/
 - [Astro](https://astro.build) — static site generator
 - YAML — single source of truth
 - [docx](https://docx.js.org) — DOCX generation
+- [Playwright](https://playwright.dev) — PDF generation
 - GitHub Pages — deployment
 - GitHub Actions — CI/CD
 
