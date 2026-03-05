@@ -238,6 +238,25 @@ a:hover { text-decoration: underline; }
   .grid { grid-template-columns: 1fr 1fr; }
 }
 
+@media (max-width: 959px) {
+  .page-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  .sidebar,
+  .main-content {
+    display: contents;
+  }
+
+  .card--downloads   { order: 1; }
+  .card.hero         { order: 2; }
+  .card--achievements{ order: 3; }
+  .section--experience { order: 4; }
+  .card--skills      { order: 5; }
+}
+
 
 /* ─────────────────────────────────────────────────────────────────────────────
    CARDS
@@ -516,7 +535,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================================================
-     NEW (ARCHIVE TOGGLE) — MOVE TO src/styles/global.css LATER
+     NEW (ARCHIVE TOGGLE) 
      ========================================================= */
 
   .project--archived { position: relative; }

@@ -17,32 +17,30 @@ const {
 } = Astro.props;
 
 const t = {
-  nameFallback: lang === 'ru' ? 'Без имени' : 'Unnamed',
-  contacts: lang === 'ru' ? 'Контакты' : 'Contacts',
-  skills: lang === 'ru' ? 'Навыки' : 'Skills',
-  experience: lang === 'ru' ? 'Опыт' : 'Experience',
-  achievements: lang === 'ru' ? 'Достижения' : 'Achievements',
-  showcase: lang === 'ru' ? 'Шоукейс' : 'Showcase',
-  downloads: lang === 'ru' ? 'Скачать' : 'Download',
-  pdf: 'PDF',
+  nameFallback: lang === 'ru' ? 'Без имени'   : 'Unnamed',
+  contacts:     lang === 'ru' ? 'Контакты'    : 'Contacts',
+  skills:       lang === 'ru' ? 'Навыки'      : 'Skills',
+  experience:   lang === 'ru' ? 'Опыт'        : 'Experience',
+  achievements: lang === 'ru' ? 'Достижения'  : 'Achievements',
+  downloads:    lang === 'ru' ? 'Скачать'     : 'Download',
+  pdf:  'PDF',
   docx: 'DOCX',
-  txt: 'TXT',
+  txt:  'TXT',
 };
 
 const pageTitle = `${data?.name ?? t.nameFallback} — CV Hub`;
 
-const contacts = Array.isArray(data?.contacts) ? data.contacts : [];
-const rawSkills = Array.isArray(data?.skills) ? data.skills : [];
-const experience = Array.isArray(data?.experience) ? data.experience : [];
-const achievements = Array.isArray(data?.achievements) ? data.achievements : [];
+const contacts     = Array.isArray(data?.contacts)    ? data.contacts    : [];
+const rawSkills    = Array.isArray(data?.skills)      ? data.skills      : [];
+const experience   = Array.isArray(data?.experience)  ? data.experience  : [];
+const achievements = Array.isArray(data?.achievements)? data.achievements: [];
 
 const normalizeBullet = (v) => {
   if (typeof v === 'string') return v;
   if (v && typeof v === 'object') {
     if (typeof v.text === 'string') return v.text;
     if (typeof v.label === 'string' && typeof v.value === 'string') return `${v.label}: ${v.value}`;
-    const parts = Object.entries(v).map(([k, val]) => `${k}: ${String(val)}`);
-    return parts.join(' · ');
+    return Object.entries(v).map(([k, val]) => `${k}: ${String(val)}`).join(' · ');
   }
   return String(v);
 };
@@ -51,48 +49,30 @@ const skillGroups = rawSkills
   .map((s) =>
     typeof s === 'string'
       ? { group: null, items: [s] }
-      : {
-          group: s?.group ?? null,
-          items: Array.isArray(s?.items) ? s.items : [],
-        },
+      : { group: s?.group ?? null, items: Array.isArray(s?.items) ? s.items : [] }
   )
   .filter((g) => g.items.length > 0);
-
-
 ---
 
 <Layout title={pageTitle} lang={lang} section="main">
   <section class="container">
-    {/*
-      page-grid: двухколоночный лейаут.
-      Левая колонка = sidebar (скачивания + навыки), правая = основной контент.
-      Чтобы изменить порядок блоков — двигай их внутри <aside> или <main>.
-    */}
     <div class="page-grid">
-      {/*
-        SIDEBAR: левая колонка.
-        Блоки можно переставлять, убирать или дублировать по желанию.
-      */}
+
+      {/* ── SIDEBAR ── */}
       <aside class="sidebar">
-        {/*
-          1. Download resume (PDF / DOCX / TXT)
-          Можно перенести ниже skills или вообще убрать, удалив этот <article>.
-        */}
-        <article class="card">
+
+        {/* 1. Download */}
+        <article class="card card--downloads">
           <h2 class="h2">{t.downloads}</h2>
           <div class="btnrow" aria-label={t.downloads}>
-            <a class="btn btn--ghost" href={pdfUrl} download>{t.pdf}</a>
+            <a class="btn btn--ghost" href={pdfUrl}  download>{t.pdf}</a>
             <a class="btn btn--ghost" href={docxUrl} download>{t.docx}</a>
-            <a class="btn btn--ghost" href={txtUrl} download>{t.txt}</a>
+            <a class="btn btn--ghost" href={txtUrl}  download>{t.txt}</a>
           </div>
         </article>
 
-        {/*
-          2. Skills (навыки)
-          При желании можно перенести этот блок в main-content
-          — просто вырежи <article> и вставь его в <main>.
-        */}
-        <article class="card">
+        {/* 2. Skills */}
+        <article class="card card--skills">
           <h2 class="h2">{t.skills}</h2>
           {skillGroups.length > 0 ? (
             <div class="skillsgrid">
@@ -113,23 +93,18 @@ const skillGroups = rawSkills
             </p>
           )}
         </article>
+
       </aside>
 
-      {/*
-        MAIN-CONTENT: правая колонка.
-        Содержит hero (имя/summary/контакты), achievements и experience.
-        Можно переупорядочить крупные блоки: hero, achievements, experience.
-      */}
+      {/* ── MAIN CONTENT ── */}
       <main class="main-content">
-        {/*
-          1. Hero: имя, тайтл, summary + контакты.
-          Обычно этот блок сверху, но можно опустить ниже achievements/experience.
-        */}
+
+        {/* 1. Hero */}
         <div class="card hero">
           <div class="hero__top">
             <div>
               <h1 class="hero__name">{data?.name ?? t.nameFallback}</h1>
-              {data?.title && <p class="hero__title">{data.title}</p>}
+              {data?.title   && <p class="hero__title">{data.title}</p>}
               {data?.summary && <p class="hero__summary">{data.summary}</p>}
             </div>
           </div>
@@ -139,7 +114,12 @@ const skillGroups = rawSkills
               <div class="section__title">{t.contacts}</div>
               <div class="pillrow">
                 {contacts.map((c) => (
-                  <a class="pill" href={c.url} target={c.url?.startsWith('mailto:') ? undefined : '_blank'} rel={c.url?.startsWith('mailto:') ? undefined : 'noopener'}>
+                  <a
+                    class="pill"
+                    href={c.url}
+                    target={c.url?.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={c.url?.startsWith('mailto:')    ? undefined : 'noopener'}
+                  >
                     {c.label}
                   </a>
                 ))}
@@ -148,13 +128,9 @@ const skillGroups = rawSkills
           )}
         </div>
 
-        {/*
-          2. Achievements (достижения).
-          Блок условный: если достижений нет — он не рендерится.
-          Можно переместить выше hero или ниже experience.
-        */}
+        {/* 2. Achievements */}
         {achievements.length > 0 && (
-          <article class="card">
+          <article class="card card--achievements">
             <h2 class="h2">{t.achievements}</h2>
             <ul class="list">
               {achievements.map((a) => <li>{a}</li>)}
@@ -162,10 +138,8 @@ const skillGroups = rawSkills
           </article>
         )}
 
-        {/*
-          3. Experience: основной таймлайн опыта.
-          Обычно внизу, но его можно поднять выше hero/achievements.
-        */}
+        {/* 3. Experience */}
+        <section class="section section--experience">
           <h2 class="h2">{t.experience}</h2>
 
           {experience.length > 0 ? (
@@ -177,7 +151,6 @@ const skillGroups = rawSkills
                     <span class="muted">{e.period ?? ''}</span>
                   </div>
                   {e.role && <div class="muted">{e.role}</div>}
-
                   {Array.isArray(e.description) && e.description.length > 0 && (
                     <ul class="list">
                       {e.description.map((d) => <li>{normalizeBullet(d)}</li>)}
@@ -195,9 +168,9 @@ const skillGroups = rawSkills
               </p>
             </article>
           )}
+        </section>
+
       </main>
     </div>
   </section>
-  
 </Layout>
-
