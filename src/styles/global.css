@@ -517,18 +517,43 @@ a:hover { text-decoration: underline; }
 
 /* Темы проектов */
 .project--auto,
-.project--blue   { --card-accent-rgb: 59 130 246;  --card-accent: #3b82f6; }
-.project--purple { --card-accent-rgb: 168 85 247;  --card-accent: #a855f7; }
-.project--amber  { --card-accent-rgb: 245 158 11;  --card-accent: #f59e0b; }
-.project--emerald{ --card-accent-rgb: 16 185 129;  --card-accent: #10b981; }
-.project--red    { --card-accent-rgb: 239 68 68;   --card-accent: #ef4444; }
-.project--slate  { --card-accent-rgb: 148 163 184; --card-accent: #94a3b8; }
+.project--blue {
+  --card-accent-rgb: 59 130 246;
+  --card-accent: #3b82f6;
+}
+
+/* Featured / pinned */
+.project--cyan {
+  --card-accent-rgb: 34 211 238;
+  --card-accent: #22d3ee;
+}
+
+/* DevOps / infra */
+.project--emerald {
+  --card-accent-rgb: 16 185 129;
+  --card-accent: #10b981;
+}
+
+/* Games / creative */
+.project--magenta {
+  --card-accent-rgb: 236 72 153;
+  --card-accent: #ec4899;
+}
 
 .project .link:hover {
   border-color: rgba(var(--card-accent-rgb) / 0.28);
   background: rgba(var(--card-accent-rgb) / 0.10);
 }
 
+.project__badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    MEDIA (showcase)

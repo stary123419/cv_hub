@@ -122,7 +122,7 @@ const showcaseProjectSchema = z.object({
   tags: z.array(z.string()).optional().default([]),
 
   theme: z
-    .enum(['auto', 'blue', 'purple', 'amber', 'emerald', 'red', 'slate'])
+    .enum(['auto', 'blue', 'cyan', 'emerald', 'magenta'])
     .optional()
     .default('auto'),
 
@@ -140,7 +140,11 @@ const showcaseProjectSchema = z.object({
   media: z.array(showcaseMediaSchema).optional().default([]),
 
   featured: z.boolean().optional().default(false),
-});
+
+  // Archive flags (some YAMLs use `archived`, some use `archive`)
+  archived: z.boolean().optional().default(false),
+  archive: z.boolean().optional().default(false),
+}).passthrough();
 
 const showcase = defineCollection({
   type: 'data',
