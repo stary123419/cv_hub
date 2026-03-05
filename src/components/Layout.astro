@@ -7,6 +7,9 @@
 //  @spartan121
 //
 import '../styles/global.css';
+import AnimatedBackground from './AnimatedBackground.astro';
+
+
 
 
 // Change theme here 
@@ -42,6 +45,7 @@ const switchHref =
     <title>{title}</title>
   </head>
   <body>
+  <AnimatedBackground />
     <header class="header">
       <div class="container header__row">
         <a class="brand" href={homeHref}>CV Hub</a>
