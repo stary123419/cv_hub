@@ -1,27 +1,27 @@
-name: Александр Романцоы
+name: Александр Романцов
 title: 
 
 summary: >
   
 contacts:
   - label: Email
-    url: 
+    url: []
   - label: GitHub
-    url: 
+    url: []
   - label: Telegram
-    url: 
+    url: []
 
 achievements:
 
 skills:
   - group: Языки программирования
-    items: 
+    items: []
 
   - group: Backend & API
-    items: 
+    items: []
 
   - group: Frontend
-    items: 
+    items: []
 
   - group: DevOps & Инфраструктура
     items: [Kubernetes, Helm, Docker, Terraform, Ansible, GitLab CI]
