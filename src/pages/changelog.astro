@@ -1,0 +1,120 @@
+---
+//
+//  changelog.astro
+//  CV Hub
+//
+//  Created by Alexander Gusarov on 06.03.2026.
+//  @spartan121
+//
+import { getEntry } from 'astro:content';
+import Layout from '../components/Layout.astro';
+
+let entries = [];
+
+try {
+  const entry = await getEntry('changelog', 'changelog');
+  entries = entry?.data?.changelog ?? [];
+} catch (err) {
+  console.warn('Changelog collection or entry not found.');
+  entries = [];
+}
+
+const typeLabel: Record<string, string> = {
+  added:   '✦ Added',
+  changed: '✎ Changed',
+  fixed:   '✔ Fixed',
+  removed: '✖ Removed',
+};
+
+const typeColor: Record<string, string> = {
+  added:   'var(--accent)',
+  changed: '#f59e0b',
+  fixed:   '#10b981',
+  removed: '#ef4444',
+};
+---
+
+<Layout title="Changelog" lang="en" section="changelog">
+  <section class="container">
+    <header class="changelog__header">
+      <h1>Changelog</h1>
+      <p class="muted">Version history of CV Hub</p>
+    </header>
+
+    {entries.length === 0 && (
+      <article class="card">
+        <p class="muted">No entries yet.</p>
+      </article>
+    )}
+
+    <div class="timeline">
+      {entries.map((entry) => (
+        <article class="card changelog__entry">
+          <div class="changelog__meta">
+            <span class="changelog__version">{entry.version}</span>
+            <span class="muted changelog__date">{entry.date}</span>
+          </div>
+          <ul class="changelog__list">
+            {entry.changes.map((change) => (
+              <li class="changelog__item">
+                <span class="changelog__type" style={`color: ${typeColor[change.type]}`}>
+                  {typeLabel[change.type]}
+                </span>
+                <span>{change.text}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <style>
+      .changelog__header { margin-bottom: 14px; }
+      .changelog__header h1 { margin: 0; }
+      .changelog__header p { margin: 8px 0 0; }
+
+      .timeline { display: flex; flex-direction: column; gap: 16px; }
+
+      .changelog__entry { padding: 24px; }
+
+      .changelog__meta {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .changelog__version {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--text-strong);
+      }
+
+      .changelog__date {
+        font-size: 0.85rem;
+      }
+
+      .changelog__list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .changelog__item {
+        display: flex;
+        gap: 10px;
+        font-size: 0.95rem;
+      }
+
+      .changelog__type {
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+        padding-top: 2px;
+      }
+    </style>
+  </section>
+</Layout>

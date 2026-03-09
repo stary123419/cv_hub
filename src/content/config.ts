@@ -153,7 +153,26 @@ const showcase = defineCollection({
   }),
 });
 
+// Changelog
+const changelogEntrySchema = z.object({
+  version: z.string(),
+  date: z.string(),
+  changes: z.array(z.object({
+    type: z.enum(['added', 'changed', 'fixed', 'removed']),
+    text: z.string(),
+  })),
+});
+
+const changelog = defineCollection({
+  type: 'data',
+  schema: z.object({
+    changelog: z.array(changelogEntrySchema),
+  }),
+});
+
 export const collections = {
   cv,
   showcase,
+  changelog
 };
+
